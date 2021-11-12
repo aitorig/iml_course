@@ -1,0 +1,15 @@
+general:
+  input_path: ../../data/ACA_data/desfasado/basedatos-clean.csv
+  blindpredict_path: ../../data/ACA_data/desfasado/basedatos-clean.csv
+  input_columns: [QBaells_Desf,QBalsanery_Desf,QBerga_Desf,QCardona_Desf,QSuria_Desf,Prep_Desf]
+  output_columns: [EC_Abrera,EC_suriaDesf]
+
+training:
+  test_split_proportion: 0.8
+  normalization_scaler_type: MinMaxScaler
+  training_engine: RandomForestRegressionTrainingEngine
+
+validation:
+  output_file: "output_report.html"
+  initial_data_analysis:
+    correlation_matrix: True
