@@ -1,0 +1,43 @@
+general:
+  input_path: ../../data/aka_random_forest.csv
+  input_columns: [QBaells_Desf,QBalsanery_Desf,QBerga_Desf,QCardona_Desf,QSuria_Desf,Prep_Desf, EC_suriaDesf]
+  output_columns: [EC_Abrera]
+
+training:
+  test_split_proportion: 0.8
+  normalization_scaler_type: MinMaxScaler
+
+  neural_network_structure:
+    input_layer:
+      type: input_layer
+    hidden_layer:
+      type: hidden_layer
+      neurons: 100
+      activation: relu
+    hidden_layer_b:
+      type: hidden_layer
+      neurons: 50
+      activation: relu
+    hidden_layer_c:
+      type: hidden_layer
+      neurons: 25
+      activation: relu
+    hidden_layer_d:
+      type: hidden_layer
+      neurons: 12
+      activation: relu
+    output_layer:
+      type: output_layer
+      activation: linear
+
+  training_options:
+    epochs: 1500
+    batch_size: 125
+  gradient_descent_options:
+    metrics: ["mean_squared_error"]
+    loss: mse
+
+validation:
+  output_file: "output_report.html"
+  initial_data_analysis:
+    correlation_matrix: True
