@@ -6,8 +6,24 @@ general:
 training:
   test_split_proportion: 0.8
   normalization_scaler_type: MinMaxScaler
+
+#  neural_network_structure:
+#    input_layer:
+#      type: input_layer
+#    hidden_layer:
+#      type: hidden_layer
+#      neurons: 75
+#      activation: relu
+#    output_layer:
+#      type: output_layer
+#      activation: linear
+
   training_options:
-    n_estimators: 250
+    epochs: 1500
+    batch_size: 50
+  gradient_descent_options:
+    metrics: ["mean_squared_error"]
+    loss: mse
 
 validation:
   output_file: "output_report.html"

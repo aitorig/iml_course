@@ -1,0 +1,50 @@
+data:
+  raw_data: ../../data/DanoneQH-ftPredc.csv
+
+training:
+  input_columns: ['QB1', 'QB31', 'QB4', 'QB7', 'QFV1', 'QFV2','3dHB1', '3dHB31', '3dHB7', '3dHFV1', '3dHFV2', '1sHB1',
+                   '1sHB31', '1sHB7', '1sHFV1', '1sHFV2' ]
+  output_columns: [ 'HB1', 'HB31', 'HB7',
+                    'HFV1', 'HFV2']
+  input_3d_columns: [ '3dHB1', '3dHB31', '3dHB7', '3dHFV1', '3dHFV2' ]
+  input_1s_columns: [ '1sHB1','1sHB31', '1sHB7', '1sHFV1', '1sHFV2' ]
+  input_columns_reduced: ['QB1', 'QB31', 'QB4', 'QB7', 'QFV1', 'QFV2', 'HB1', 'HB31', 'HB7', 'HFV1', 'HFV2']
+  output_columns_reduced: ['HB1', 'HB31', 'HB7', 'HFV1', 'HFV2']
+
+  test_split_proportion: 0.1
+  normalization_scaler_type: MinMaxScaler
+  training_engine: NeuralNetworkTrainingEngine
+  use_custom_loss: False
+  look_back: 4
+  neural_network_structure:
+    input_layer:
+      type: input_layer
+    lstm_layer:
+      type: bidirectional_LSTM_layer
+      neurons: 32
+      activity_regularizer:
+        type: l1
+        options:
+          l1: 0.0001
+      bias_regularizer:
+        type: l1
+        options:
+          l1: 0.1
+    hidden_layer:
+      type: hidden_layer
+      neurons: 16
+    output_layer:
+      type: output_layer
+  training_options:
+    epochs: 500
+    batch_size: 512
+  gradient_descent_options:
+    metrics: [ "mean_squared_error", "accuracy" ]
+    loss: mse
+
+  validation:
+    initial_data_analysis:
+      correlation_matrix: True
+    training_plot_format:
+    validation_plot_format:
+    output_file: "output_report.html"
